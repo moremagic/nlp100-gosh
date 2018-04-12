@@ -1,0 +1,55 @@
+#!/usr/bin/env gosh
+(use srfi-1)
+(use srfi-13)
+(use gauche.sequence)
+(use gauche.collection)
+(use text.tree)
+
+
+
+(define (nlp100-sample)
+  "hello")
+
+(define (nlp100-00)
+  (list->string (reverse (string->list "stressed"))))
+
+(define (nlp100-01)
+  (define (getchar s i)
+    (subseq s (- i 1) i))
+  (define (getstr str lst)
+    (map (lambda (n) (getchar str n)) lst))
+  (tree->string (getstr "パタトクカシーー" '#(1 3 5 7))))
+
+(define (nlp100-02)
+  (define (getchar s i)
+    (subseq s (- i 1) i))
+  (define (getstr str1 str2)
+    (cond
+      ((null? str1) '())
+      (else
+        (cons (cons (car str1) (car str2)) (getstr (cdr str1) (cdr str2))))))
+  (tree->string (getstr (string->list "パトカー") (string->list "タクシー"))))
+
+
+(define (nlp100-03)
+  (define (getchar lst)
+    (cond
+      ((null? lst) '())
+      (else
+        (cons (string-length (string-filter char-alphabetic? (car lst))) (getchar (cdr lst))))))
+  (tree->string
+    (getchar
+      (string-split 
+        "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics." " "))))
+
+(define (nlp100-04)
+  (define (mkalist lst)
+    (cond
+      ((null? lst) '())
+      ((assoc (subseq (car lst) 0 1) (mkalist (cdr lst)))
+        (acons (subseq (car lst) 0 2) (car lst) (mkalist (cdr lst))))
+      (else
+        (acons (subseq (car lst) 0 1) (car lst) (mkalist (cdr lst))))))
+  (mkalist (string-split "Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can." " ") ))
+
+

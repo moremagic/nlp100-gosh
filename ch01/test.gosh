@@ -1,0 +1,15 @@
+#!/usr/bin/env gosh
+(use gauche.test)
+
+(test-start "ch01-01")
+(load "./main.gosh")
+
+(test-section "01")
+(test "nlp100-sample" "hello" nlp100-sample)
+(test "nlp100-00" "desserts" nlp100-00)
+(test "nlp100-01" "パトカー" nlp100-01)
+(test "nlp100-02" "パタトクカシーー" nlp100-02)
+(test "nlp100-03" "314159265358979" nlp100-03)
+(test "nlp100-04" '(("Hi" . "Hi") ("H" . "He") ("L" . "Lied") ("Be" . "Because") ("B" . "Boron") ("Co" . "Could") ("No" . "Not") ("O" . "Oxidize") ("F" . "Fluorine.") ("Ne" . "New") ("N" . "Nations") ("M" . "Might") ("Al" . "Also") ("Si" . "Sign") ("P" . "Peace") ("S" . "Security") ("Cl" . "Clause.") ("A" . "Arthur") ("K" . "King") ("C" . "Can.")) nlp100-04)
+
+
