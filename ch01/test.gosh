@@ -10,6 +10,6 @@
 (test "nlp100-01" "パトカー" nlp100-01)
 (test "nlp100-02" "パタトクカシーー" nlp100-02)
 (test "nlp100-03" "314159265358979" nlp100-03)
-(test "nlp100-04" '(("Hi" . "Hi") ("H" . "He") ("L" . "Lied") ("Be" . "Because") ("B" . "Boron") ("Co" . "Could") ("No" . "Not") ("O" . "Oxidize") ("F" . "Fluorine.") ("Ne" . "New") ("N" . "Nations") ("M" . "Might") ("Al" . "Also") ("Si" . "Sign") ("P" . "Peace") ("S" . "Security") ("Cl" . "Clause.") ("A" . "Arthur") ("K" . "King") ("C" . "Can.")) nlp100-04)
+(test "nlp100-04" ' (("H" . "Hi") ("He" . "He") ("Li" . "Lied") ("Be" . "Because") ("B" . "Boron") ("C" . "Could") ("N" . "Not") ("O" . "Oxidize") ("F" . "Fluorine.") ("Ne" . "New") ("Na" . "Nations") ("Mi" . "Might") ("Al" . "Also") ("Si" . "Sign") ("P" . "Peace") ("S" . "Security") ("Cl" . "Clause.") ("Ar" . "Arthur") ("K" . "King") ("Ca" . "Can.")) nlp100-04)
 
 
