@@ -61,8 +61,8 @@
             (acons (subseq (car lst) 0 2) (car lst) (mkalist (+ 1 idx) (cdr lst) idxs)))))))
   (mkalist 1 (string-split s " ") idxs ))
 
-(define (nlp100-05)
-  (define s  "I am an NLPer")
+(define (nlp100-05-1)
+  (define s "I am an NLPer")
   (define (bi-gram lst)
     (cond
       ((null? (cdr lst)) '())
@@ -70,5 +70,52 @@
         (cons (tree->string (cons (car lst) (cadr lst))) (bi-gram (cdr lst))))))
   (bi-gram (string-split s " ")))
 
+(define (nlp100-05-2)
+  (define s "I am an NLPer")
+  (define (bi-gram lst)
+    (cond
+      ((null? (cdr lst)) '())
+      (else
+        (cons (tree->string (cons (car lst) (cadr lst))) (bi-gram (cdr lst))))))
+    (bi-gram (string->list s)))
 
-(print (nlp100-05))
+(define (nlp100-06)
+  (define str1 "paraparaparadise")
+  (define str2 "paragraph")
+
+  (define (bi-gram lst)
+    (cond
+      ((null? (cdr lst)) '())
+      (else
+        (cons (tree->string (cons (car lst) (cadr lst))) (bi-gram (cdr lst))))))
+  (print
+    (bi-gram (string->list str1)))
+  (print
+    (bi-gram (string->list str2)))
+
+  ;;和集合
+  (print
+    (lset-union equal?
+      (bi-gram (string->list str1))
+      (bi-gram (string->list str2))))
+  ;;差集合
+  (print
+    (lset-difference equal?
+      (bi-gram (string->list str1))
+      (bi-gram (string->list str2))))
+  ::積集合
+  (print
+    (lset-intersection equal?
+      (bi-gram (string->list str1))
+      (bi-gram (string->list str2))))
+
+  (print
+    (find (lambda (n) (equal? n "se")) (bi-gram (string->list str1))))
+  (print
+    (find (lambda (n) (equal? n "se")) (bi-gram (string->list str2))))
+)
+
+(define (nlp100-07 x y z)
+  (format "~A時の~Aは~A" x y z))
+
+(print (nlp100-07 12 "気温" 22.4))
