@@ -4,7 +4,6 @@
 (use gauche.sequence)
 (use gauche.collection)
 (use text.tree)
-(use gauche.charconv)
 
 (define (nlp100-sample)
   "hello")
