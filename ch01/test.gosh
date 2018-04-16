@@ -12,8 +12,14 @@
 (test "nlp100-03" "314159265358979" nlp100-03)
 (test "nlp100-04" ' (("H" . "Hi") ("He" . "He") ("Li" . "Lied") ("Be" . "Because") ("B" . "Boron") ("C" . "Could") ("N" . "Not") ("O" . "Oxidize") ("F" . "Fluorine.") ("Ne" . "New") ("Na" . "Nations") ("Mi" . "Might") ("Al" . "Also") ("Si" . "Sign") ("P" . "Peace") ("S" . "Security") ("Cl" . "Clause.") ("Ar" . "Arthur") ("K" . "King") ("Ca" . "Can.")) nlp100-04)
 
-(test "nlp100-05-1" '("Iam" "aman" "anNLPer") nlp100-05-1)
-(test "nlp100-05-2" '("I " " a" "am" "m " " a" "an" "n " " N" "NL" "LP" "Pe" "er") nlp100-05-2)
+(test "nlp100-05-1" '("Iam" "aman" "anNLPer") (lambda () (nlp100-05 "01")))
+(test "nlp100-05-2" '("I " " a" "am" "m " " a" "an" "n " " N" "NL" "LP" "Pe" "er") (lambda () (nlp100-05 "02")))
+(test "nlp100-06-1" '("ph" "gr" "ag" "pa" "ar" "ra" "ap" "pa" "ar" "ra" "ap" "pa" "ar" "ra" "ad" "di" "is" "se") (lambda () (nlp100-06 "01")))
+(test "nlp100-06-2" '("ad" "di" "is" "se") (lambda () (nlp100-06 "02")))
+(test "nlp100-06-3" '("pa" "ar" "ra" "ap" "pa" "ar" "ra" "ap" "pa" "ar" "ra") (lambda () (nlp100-06 "03")))
+(test "nlp100-06-4" "se" (lambda () (nlp100-06 "04")))
+(test "nlp100-06-5" #f (lambda () (nlp100-06 "05")))
+(test "nlp100-08" "hello gauche!" (lambda () (nlp100-08-enc (nlp100-08-cyp "hello gauche!"))))
 (test "nlp100-07" "12時の気温は22.4" (lambda () (nlp100-07 12 "気温" 22.4)))
 (test "nlp100-09" ' ("I" "cu'ldont" "bileeve" "taht" "I" "cluod" "allaucty" "usdrentand" "what" "I" "was" "rnidaeg" ":" "the" "poemeanhnl" "power" "of" "the" "human" "mind" ".") (lambda () (nlp100-09)))
 

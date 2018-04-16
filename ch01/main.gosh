@@ -4,7 +4,7 @@
 (use gauche.sequence)
 (use gauche.collection)
 (use text.tree)
-
+(use gauche.charconv)
 
 (define (nlp100-sample)
   "hello")
@@ -61,25 +61,21 @@
             (acons (subseq (car lst) 0 2) (car lst) (mkalist (+ 1 idx) (cdr lst) idxs)))))))
   (mkalist 1 (string-split s " ") idxs ))
 
-(define (nlp100-05-1)
+(define (nlp100-05 no)
   (define s "I am an NLPer")
   (define (bi-gram lst)
     (cond
       ((null? (cdr lst)) '())
       (else
         (cons (tree->string (cons (car lst) (cadr lst))) (bi-gram (cdr lst))))))
-  (bi-gram (string-split s " ")))
+  (cond
+    ((null? no) '())
+    ((equal? no "01")
+      (bi-gram (string-split s " ")))
+    ((equal? no "02")
+      (bi-gram (string->list s)))))
 
-(define (nlp100-05-2)
-  (define s "I am an NLPer")
-  (define (bi-gram lst)
-    (cond
-      ((null? (cdr lst)) '())
-      (else
-        (cons (tree->string (cons (car lst) (cadr lst))) (bi-gram (cdr lst))))))
-    (bi-gram (string->list s)))
-
-(define (nlp100-06)
+(define (nlp100-06 no)
   (define str1 "paraparaparadise")
   (define str2 "paragraph")
 
@@ -88,39 +84,51 @@
       ((null? (cdr lst)) '())
       (else
         (cons (tree->string (cons (car lst) (cadr lst))) (bi-gram (cdr lst))))))
-  (print
-    (bi-gram (string->list str1)))
-  (print
-    (bi-gram (string->list str2)))
 
-  ;;和集合
-  (print
-    (lset-union equal?
-      (bi-gram (string->list str1))
-      (bi-gram (string->list str2))))
-  ;;差集合
-  (print
-    (lset-difference equal?
-      (bi-gram (string->list str1))
-      (bi-gram (string->list str2))))
-  ::積集合
-  (print
-    (lset-intersection equal?
-      (bi-gram (string->list str1))
-      (bi-gram (string->list str2))))
-
-  (print
-    (find (lambda (n) (equal? n "se")) (bi-gram (string->list str1))))
-  (print
-    (find (lambda (n) (equal? n "se")) (bi-gram (string->list str2))))
-)
+  (cond
+    ((null? no) '())
+    ((equal? no "01")
+      ;;和集合
+      (lset-union equal?
+        (bi-gram (string->list str1))
+        (bi-gram (string->list str2))))
+    ((equal? no "02")
+      ;;差集合
+      (lset-difference equal?
+        (bi-gram (string->list str1))
+        (bi-gram (string->list str2))))
+    ((equal? no "03")
+      ;;積集合
+      (lset-intersection equal?
+        (bi-gram (string->list str1))
+        (bi-gram (string->list str2))))
+    ((equal? no "04")
+      (find (lambda (n) (equal? n "se")) (bi-gram (string->list str1))))
+    ((equal? no "05")
+      (find (lambda (n) (equal? n "se")) (bi-gram (string->list str2))))))
 
 (define (nlp100-07 x y z)
   (format "~A時の~Aは~A" x y z))
 
 
+(define (nlp100-08-cyp str)
+  (define (cyp c)
+    (cond
+      ((null? c) 'c)
+      ((char-alphabetic? c)
+        (- 219 (char->integer c)))
+      (else c)))
+  (map cyp (string->list str)))
 
-
+(define (nlp100-08-enc lst)
+  (define (enc c)
+    (cond
+      ((null? c) 'c)
+      ((number? c)
+        (integer->char (- 219 c)))
+      (else c)))
+  (list->string (map enc lst)))
+  
 (define (nlp100-09)
   (define s "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind .")
 
@@ -133,6 +141,7 @@
           (shuffle (substring str 1 (- (string-length str) 1)))
           (substring str (- (string-length str) 1) (string-length str) )))))
 
-  (map word-shuffle (string-split s " "))
- )
+  (map word-shuffle (string-split s " ")))
+
+
 
