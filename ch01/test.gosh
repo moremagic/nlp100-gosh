@@ -15,5 +15,6 @@
 (test "nlp100-05-1" '("Iam" "aman" "anNLPer") nlp100-05-1)
 (test "nlp100-05-2" '("I " " a" "am" "m " " a" "an" "n " " N" "NL" "LP" "Pe" "er") nlp100-05-2)
 (test "nlp100-07" "12時の気温は22.4" (lambda () (nlp100-07 12 "気温" 22.4)))
+(test "nlp100-09" ' ("I" "cu'ldont" "bileeve" "taht" "I" "cluod" "allaucty" "usdrentand" "what" "I" "was" "rnidaeg" ":" "the" "poemeanhnl" "power" "of" "the" "human" "mind" ".") (lambda () (nlp100-09)))
 
 

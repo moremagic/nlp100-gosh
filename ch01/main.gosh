@@ -118,4 +118,21 @@
 (define (nlp100-07 x y z)
   (format "~A時の~Aは~A" x y z))
 
-(print (nlp100-07 12 "気温" 22.4))
+
+
+
+(define (nlp100-09)
+  (define s "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind .")
+
+  (define (word-shuffle str)
+    (cond
+      ((> 4 (string-length str)) str)
+      (else
+        (format "~A~A~A"
+          (substring str 0 1)
+          (shuffle (substring str 1 (- (string-length str) 1)))
+          (substring str (- (string-length str) 1) (string-length str) )))))
+
+  (map word-shuffle (string-split s " "))
+ )
+
