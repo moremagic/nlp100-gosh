@@ -1,0 +1,13 @@
+#!/usr/bin/env gosh
+
+;;(use file.util :prefix file:)
+(use file.util)
+
+(define (nlp100-10)
+  (length (file->string-list "./hightemp.txt")))
+
+
+(print (nlp100-10))
+(print (car (file->string-list "./hightemp.txt")))
+
+
