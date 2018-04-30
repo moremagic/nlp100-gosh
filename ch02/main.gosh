@@ -2,12 +2,40 @@
 
 ;;(use file.util :prefix file:)
 (use file.util)
+(use text.tr)
 
 (define (nlp100-10)
   (length (file->string-list "./hightemp.txt")))
 
+(define (nlp100-11)
+  (define (replace-str str)
+    (string-tr str "\t" " "))
+  (string-join
+    (map replace-str (file->string-list "./hightemp.txt")) "\n"))
+
+(define (nlp100-12)
+  (define raw (file->string-list "./hightemp.txt"))
+  (file-write "col1.txt"
+    (string-join
+      (map
+        (lambda (line)
+          (car (string-split line "\t"))) raw) "#\newline"))
+  (file-write "col2.txt"
+    (string-join
+      (map
+        (lambda (line)
+          (cadr (string-split line "\t"))) raw) "\n"))
+)
+
+(define (file-write file str)
+  (call-with-output-file file
+    (lambda (out)
+      (write (format out str)))))
+
 
 (print (nlp100-10))
 (print (car (file->string-list "./hightemp.txt")))
+(print (nlp100-11))
+(print (nlp100-12))
 
-
+(file-write "bbb" "aaaa\nbbb")
