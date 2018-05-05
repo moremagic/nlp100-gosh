@@ -3,6 +3,7 @@
 ;;(use file.util :prefix file:)
 (use file.util)
 (use text.tr)
+(use text.tree)
 
 (define (nlp100-10)
   (length (file->string-list "./hightemp.txt")))
@@ -10,8 +11,14 @@
 (define (nlp100-11)
   (define (replace-str str)
     (string-tr str "\t" " "))
-  (string-join
-    (map replace-str (file->string-list "./hightemp.txt")) "\n"))
+  (tree->string
+    (string-join
+      (map replace-str (file->string-list "./hightemp.txt")) " ")))
+
+(define (file-write file str)
+  (call-with-output-file file
+    (lambda (out)
+      (write (format out str)))))
 
 (define (nlp100-12)
   (define raw (file->string-list "./hightemp.txt"))
@@ -19,23 +26,35 @@
     (string-join
       (map
         (lambda (line)
-          (car (string-split line "\t"))) raw) "#\newline"))
+          (car (string-split line "\t"))) raw) "\n"))
   (file-write "col2.txt"
     (string-join
       (map
         (lambda (line)
-          (cadr (string-split line "\t"))) raw) "\n"))
-)
+          (cadr (string-split line "\t"))) raw) "\n")))
 
-(define (file-write file str)
-  (call-with-output-file file
-    (lambda (out)
-      (write (format out str)))))
+(define (nlp100-13)
+  (define raw1 (file->string-list "./col1.txt"))
+  (define raw2 (file->string-list "./col2.txt"))
+
+  (define (marge lst1 lst2)
+    (cond
+      ((null? lst1) "")
+      ((null? lst2) "")
+      (else
+        #?=(string-join (list (car lst1) (car lst2)) "\t")
+        (string-join
+          (list
+            (string-join (list (car lst1) (car lst2)) "\t")
+            (marge (cdr lst1) (cdr lst2))) "\n" ))))
+
+  (file-write "marge.txt"
+    (marge raw1 raw2)))
+
 
 
 (print (nlp100-10))
-(print (car (file->string-list "./hightemp.txt")))
 (print (nlp100-11))
 (print (nlp100-12))
+(print (nlp100-13))
 
-(file-write "bbb" "aaaa\nbbb")

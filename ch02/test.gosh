@@ -1,0 +1,24 @@
+#!/usr/bin/env gosh
+(use gauche.test)
+(use gauche.process)
+
+(test-start "ch01-02")
+(load "./main.gosh")
+
+(test-section "02")
+(test "nlp100-10"
+  (process-output->string '(wc -l ./hightemp.txt))
+  (lambda ()
+    (format "~A ./hightemp.txt" (nlp100-10))))
+(test "nlp100-11"
+  (process-output->string '(sed -e "s/\t/ /g" ./hightemp.txt))
+  (lambda () (format (nlp100-11))))
+(test "nlp100-12-1"
+  (process-output->string '(cut -f 1 ./hightemp.txt))
+  (lambda () (format (process-output->string '(cat ./col1.txt)))))
+(test "nlp100-12-2"
+  (process-output->string '(cut -f 2 ./hightemp.txt))
+  (lambda () (format (process-output->string '(cat ./col2.txt)))))
+(test "nlp100-13"
+  (process-output->string '(paste col1.txt col2.txt))
+  (lambda () (format (process-output->string '(cat ./marge.txt)))))
