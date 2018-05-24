@@ -47,14 +47,25 @@
           (list
             (string-join (list (car lst1) (car lst2)) "\t")
             (marge (cdr lst1) (cdr lst2))) "\n" ))))
-
   (file-write "marge.txt"
     (marge raw1 raw2)))
 
+
+(define (nlp100-14 n)
+  (define raw (file->string-list "./hightemp.txt"))
+  (define (head n lines)
+    (cond 
+      ((zero? n) '())
+      (else
+        (cons
+          (car lines)
+          (head (- n 1) (cdr lines))))))
+  (string-join (head n raw) "\n"))
 
 
 (print (nlp100-10))
 (print (nlp100-11))
 (print (nlp100-12))
 (print (nlp100-13))
+(print (nlp100-14 5))
 

@@ -22,3 +22,7 @@
 (test "nlp100-13"
   (process-output->string '(paste col1.txt col2.txt))
   (lambda () (format (process-output->string '(cat ./marge.txt)))))
+(test "nlp100-14"
+  (process-output->string '(head -n 3 ./hightemp.txt))
+  (lambda () (format "~A" (nlp100-14 3))))
+
